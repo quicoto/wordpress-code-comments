@@ -3,7 +3,7 @@
 
 	Plugin Name: WordPress Code Comments
 	Plugin URI: https://php.quicoto.com
-	Description: A WordPress plugin which escapes the HTML inside the <code> blocks in comments
+	Description: A WordPress plugin which escapes the HTML inside the code blocks in comments
 	Author: Ricard Torres
 	Version: 1.0
 	Author URI: https://ricard.blog
