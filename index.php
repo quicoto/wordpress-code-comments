@@ -11,8 +11,8 @@
 
 function encode_code_in_comment( $comment ) {
 	// Fix all code syntax in old comments
-	$comment = str_replace('[code]', '<code>');
-	$comment = str_replace('[/code]', '</code>');
+	$comment = str_replace('[code]', '<code>', $comment);
+	$comment = str_replace('[/code]', '</code>', $comment);
 
 	$encoded = preg_replace_callback( '/<code>(.*?)<\/code>/ims',
 		function ($matches) {
