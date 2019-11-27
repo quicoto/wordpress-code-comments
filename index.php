@@ -24,7 +24,7 @@ function encode_code_in_comment( $comment ) {
 
   if ($encoded) return $encoded;
 
-  return $comment
+  return $comment;
 }
 
 add_filter( 'comment_text', 'encode_code_in_comment', '', 1);
