@@ -12,7 +12,7 @@
 function encode_code_in_comment( $comment ) {
 	$encoded = preg_replace_callback( '/<code>(.*?)<\/code>/ims',
 		function ($matches) {
-      return '<code>' . htmlspecialchars($matches[1]) . '</code>';
+      return '<pre class="wp-block-code"><code class="hljs">' . htmlspecialchars($matches[1]) . '</code></pre>';
     },
 		$comment
   );
