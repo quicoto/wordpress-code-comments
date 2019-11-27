@@ -14,6 +14,8 @@ function encode_code_in_comment( $comment ) {
 	$comment = str_replace('[code]', '<code>', $comment);
 	$comment = str_replace('[/code]', '</code>', $comment);
 
+	$comment = htmlspecialchars_decode($comment);
+
 	$encoded = preg_replace_callback( '/<code>(.*?)<\/code>/ims',
 		function ($matches) {
       return '<pre class="wp-block-code"><code class="hljs">' . htmlspecialchars($matches[1]) . '</code></pre>';
