@@ -22,5 +22,5 @@ function encode_code_in_comment( $comment ) {
   return $comment;
 }
 
-add_filter( 'comment_text', 'encode_code_in_comment', '', 1);
+add_filter( 'comment_text', 'encode_code_in_comment', 9);
 
