@@ -41,6 +41,7 @@ function filter_comment_text( $comment ) {
 
   if ($encoded) {
 		$encoded = str_replace(['’', '‘'], "'", $encoded);
+		$encoded = str_replace(['”'], '"', $encoded);
 		return $encoded;
 	}
 
