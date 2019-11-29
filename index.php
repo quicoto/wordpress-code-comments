@@ -20,37 +20,27 @@ namespace Syntax_Highlighting_Code_Comments;
  * @param string $comment_text Comment text.
  * @return string Syntax-highlighted.
  */
-function filter_comment_text( $comment_text ) {
+function filter_comment_text( $comment ) {
 	// Fix all code syntax in old comments
-	$comment_text = str_replace('[code]', '<code>', $comment_text);
-	$comment_text = str_replace('[/code]', '</code>', $comment_text);
+	$comment = str_replace('[code]', '<code>', $comment);
+	$comment = str_replace('[/code]', '</code>', $comment);
 
-	$comment_text = htmlspecialchars_decode($comment_text);
+	$comment = htmlspecialchars_decode($comment);
 
-	if ( ! function_exists( '\Syntax_Highlighting_Code_Block\render_block' ) ) {
-		return $comment_text;
-	}
-	$pattern = implode(
-		'',
-		[
-			'(?<=^|\n)',
-			'(<pre[^>]*?>\s*)?',
-			'<code[^>]*?>(?P<contents>[^<]*?)</code>',
-			'(\s*</pre>)?',
-			'(?=\r?\n|$)',
-		]
-	);
-	return preg_replace_callback(
-		"#{$pattern}#si",
-		static function( $matches ) {
+	$encoded = preg_replace_callback( '/<code>(.*?)<\/code>/ims',
+		function ($matches) {
 			$attributes = [];
-			$contents   = $matches['contents'];
+			$contents   = htmlspecialchars($matches[1]);
 			$before     = '<pre><code>';
 			$after      = '</code></pre>';
 			return \Syntax_Highlighting_Code_Block\render_block( $attributes, $before . $contents . $after );
-		},
-		$comment_text
-	);
+    },
+		$comment
+  );
+
+  if ($encoded) return $encoded;
+
+	return $comment;
 }
 add_filter( 'comment_text', __NAMESPACE__ . '\filter_comment_text', 20 );
 
