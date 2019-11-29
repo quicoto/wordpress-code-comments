@@ -30,7 +30,7 @@ function filter_comment_text( $comment ) {
 	$encoded = preg_replace_callback( '/<code>(.*?)<\/code>/ims',
 		function ($matches) {
 			$attributes = [];
-			$contents   = htmlspecialchars($matches[1]);
+			$contents   = $matches[1];
 			$before     = '<pre><code>';
 			$after      = '</code></pre>';
 			return \Syntax_Highlighting_Code_Block\render_block( $attributes, $before . $contents . $after );
