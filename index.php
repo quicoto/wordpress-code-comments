@@ -22,10 +22,10 @@ namespace Syntax_Highlighting_Code_Comments;
  */
 function filter_comment_text( $comment_text ) {
 	// Fix all code syntax in old comments
-	$comment = str_replace('[code]', '<code>', $comment);
-	$comment = str_replace('[/code]', '</code>', $comment);
+	$comment_text = str_replace('[code]', '<code>', $comment_text);
+	$comment_text = str_replace('[/code]', '</code>', $comment_text);
 
-	$comment = htmlspecialchars_decode($comment);
+	$comment_text = htmlspecialchars_decode($comment_text);
 
 	if ( ! function_exists( '\Syntax_Highlighting_Code_Block\render_block' ) ) {
 		return $comment_text;
