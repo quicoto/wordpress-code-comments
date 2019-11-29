@@ -9,28 +9,6 @@
 	Author URI: https://ricard.blog
 */
 
-function encode_code_in_comment( $comment ) {
-	// Fix all code syntax in old comments
-	$comment = str_replace('[code]', '<code>', $comment);
-	$comment = str_replace('[/code]', '</code>', $comment);
-
-	$comment = htmlspecialchars_decode($comment);
-
-	$encoded = preg_replace_callback( '/<code>(.*?)<\/code>/ims',
-		function ($matches) {
-      return '<pre class="wp-block-code"><code class="hljs">' . htmlspecialchars($matches[1]) . '</code></pre>';
-    },
-		$comment
-  );
-
-  if ($encoded) return $encoded;
-
-  return $comment;
-}
-
-// add_filter( 'comment_text', 'encode_code_in_comment', 9);
-
-
 namespace Syntax_Highlighting_Code_Comments;
 /**
  * Make <code>...</code> in (comment) text syntax-highlighted.
@@ -75,4 +53,25 @@ function filter_comment_text( $comment_text ) {
 	);
 }
 add_filter( 'comment_text', __NAMESPACE__ . '\filter_comment_text', 20 );
+
+function encode_code_in_comment( $comment ) {
+	// Fix all code syntax in old comments
+	$comment = str_replace('[code]', '<code>', $comment);
+	$comment = str_replace('[/code]', '</code>', $comment);
+
+	$comment = htmlspecialchars_decode($comment);
+
+	$encoded = preg_replace_callback( '/<code>(.*?)<\/code>/ims',
+		function ($matches) {
+      return '<pre class="wp-block-code"><code class="hljs">' . htmlspecialchars($matches[1]) . '</code></pre>';
+    },
+		$comment
+  );
+
+  if ($encoded) return $encoded;
+
+  return $comment;
+}
+
+// add_filter( 'comment_text', 'encode_code_in_comment', 9);
 
