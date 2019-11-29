@@ -27,7 +27,6 @@ function filter_comment_text( $comment ) {
 
 	$comment = htmlspecialchars_decode($comment);
 
-
 	$encoded = preg_replace_callback( '/<code>(.*?)<\/code>/ims',
 		function ($matches) {
 			$attributes = [];
