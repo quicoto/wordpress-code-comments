@@ -44,7 +44,7 @@ function filter_comment_text( $comment_text ) {
 		"#{$pattern}#si",
 		static function( $matches ) {
 			$attributes = [];
-			$contents   = $matches['contents'];
+			$contents   = $matches[1];
 			$before     = '<pre><code>';
 			$after      = '</code></pre>';
 			return \Syntax_Highlighting_Code_Block\render_block( $attributes, $before . $contents . $after );
