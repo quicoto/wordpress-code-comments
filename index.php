@@ -35,7 +35,7 @@ function filter_comment_text( $comment_text ) {
 		[
 			'(?<=^|\n)',
 			'(<pre[^>]*?>\s*)?',
-			'/<code>(.*?)<\/code>/ims',
+			'<code[^>]*?>(?P<contents>[^<]*?)</code>',
 			'(\s*</pre>)?',
 			'(?=\r?\n|$)',
 		]
@@ -44,7 +44,7 @@ function filter_comment_text( $comment_text ) {
 		"#{$pattern}#si",
 		static function( $matches ) {
 			$attributes = [];
-			$contents   = $matches[1];
+			$contents   = $matches['contents'];
 			$before     = '<pre><code>';
 			$after      = '</code></pre>';
 			return \Syntax_Highlighting_Code_Block\render_block( $attributes, $before . $contents . $after );
