@@ -27,7 +27,6 @@ function filter_comment_text( $comment ) {
 
 	$comment = htmlspecialchars_decode($comment);
 
-	$comment = str_replace(['’', '‘'], "'", $comment);
 
 	$encoded = preg_replace_callback( '/<code>(.*?)<\/code>/ims',
 		function ($matches) {
@@ -36,34 +35,15 @@ function filter_comment_text( $comment ) {
 			$before     = '<pre><code>';
 			$after      = '</code></pre>';
 			return \Syntax_Highlighting_Code_Block\render_block( $attributes, $before . $contents . $after );
-    },
+		},
 		$comment
-  );
+	);
 
-  if ($encoded) return $encoded;
+  if ($encoded) {
+		$encoded = str_replace(['’', '‘'], "'", $encoded);
+		return $encoded;
+	}
 
 	return $comment;
 }
 add_filter( 'comment_text', __NAMESPACE__ . '\filter_comment_text', 20 );
-
-function encode_code_in_comment( $comment ) {
-	// Fix all code syntax in old comments
-	$comment = str_replace('[code]', '<code>', $comment);
-	$comment = str_replace('[/code]', '</code>', $comment);
-
-	$comment = htmlspecialchars_decode($comment);
-
-	$encoded = preg_replace_callback( '/<code>(.*?)<\/code>/ims',
-		function ($matches) {
-      return '<pre class="wp-block-code"><code class="hljs">' . htmlspecialchars($matches[1]) . '</code></pre>';
-    },
-		$comment
-  );
-
-  if ($encoded) return $encoded;
-
-  return $comment;
-}
-
-// add_filter( 'comment_text', 'encode_code_in_comment', 9);
-
