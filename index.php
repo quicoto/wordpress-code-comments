@@ -35,7 +35,7 @@ function filter_comment_text( $comment_text ) {
 		[
 			'(?<=^|\n)',
 			'(<pre[^>]*?>\s*)?',
-			'<code[^>]*?>(?P<contents>[^<]*?)</code>',
+			'/<code>(.*?)<\/code>/ims',
 			'(\s*</pre>)?',
 			'(?=\r?\n|$)',
 		]
