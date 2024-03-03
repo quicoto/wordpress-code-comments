@@ -29,7 +29,7 @@ function filter_comment_text( $comment ) {
 
 	$encoded = preg_replace_callback( '/<code>(.*?)<\/code>/ims',
 		function ($matches) {
-			$attributes = [];
+			$attributes = ['showLineNumbers'];
 			$contents   = $matches[1];
 			$before     = '<pre><code>';
 			$after      = '</code></pre>';
