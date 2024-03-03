@@ -33,6 +33,7 @@ function filter_comment_text( $comment ) {
 			$attributes['highlightedLines'] = false;
 			$attributes['showLineNumbers'] = false;
 			$attributes['wrapLines'] = false;
+			$attributes['language'] = '';
 			$contents   = $matches[1];
 			$before     = '<pre><code>';
 			$after      = '</code></pre>';
